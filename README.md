@@ -11,7 +11,6 @@ https://coolcat-310.github.io/persistence/
 - HTML 5
 - CSS/Bootstrap 3
 - jQuery 3.1
-- moment js
 - firebase
 
 ```HTML

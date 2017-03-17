@@ -38,10 +38,10 @@ $("#myButton").on("click", function (event) {
         firstTrain: FirstTrain,
         frequency: Frequency
     });
-    train.val('');
-    Destination.val('');
-    FirstTrain.val('');
-    Frequency.val('');
+    $("#trainName").val('');
+    $("#Destination").val('');
+    $("#FirstTrain").val('');
+    $("#Frequency").val('');
 });
 
 function myNextTrain(initial,interval){
@@ -51,9 +51,14 @@ function myNextTrain(initial,interval){
      * @param int(initial), int(interval)
      */
     var arr = [];
-    var currentHour = moment().get('hour');
-    var currentMin  = moment().get('minute');
-    var totalMinutes = (currentHour * 60) + currentMin;
+    // var currentHour = moment().get('hour');
+    // var currentMin  = moment().get('minute');
+    var dt = new Date();
+    var hours = dt.getHours();
+    var mins = dt.getMinutes();
+    // console.log(currentHour, hours);
+    // console.log(currentMin, mins);
+    var totalMinutes = (hours * 60) + mins;
     var initialMinutes = initial * 60;
 
 
