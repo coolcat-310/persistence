@@ -13,8 +13,8 @@
 <div class="container">
     <div class="jumbotron">
 
-        <h1>Employee Data Management</h1>
-        <p>A comprehensive Directory of Employee Billable Hours</p>
+        <h1>Train Schedule</h1>
+        <p>Anytime is Train Time</p>
     </div>
 </div>
 <div class="container">
@@ -22,26 +22,18 @@
         <div class="container">
             <div class="panel panel-primary">
                 <table class="table table-bordered">
-                    <div class="panel-heading">Panel with panel-primary class</div>
+                    <div class="panel-heading">Current Train Schedule</div>
                     <thead>
                     <tr>
-                        <th>Employee Name</th>
-                        <th>Role</th>
-                        <th>Start Date</th>
-                        <th>Month Worked</th>
-                        <th>Monthly rate ($)</th>
-                        <th>Total Billed ($)</th>
+                        <th>Train Name</th>
+                        <th>Destination</th>
+                        <th>Frequency (min)</th>
+                        <th>Next Arrival</th>
+                        <th>Minutes Away</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr id="0">
-                    <td>John</td>
-                    <td>John</td>
-                    <td>John</td>
-                    <td>John</td>
-                    <td>John</td>
-                    <td>John</td>
-                    </tr>
+
                     </tbody>
                 </table>
             </div>
@@ -52,24 +44,24 @@
 
 <div class="container">
     <div class="panel panel-primary">
-        <div class="panel-heading">Add Employee</div>
+        <div class="panel-heading">Add Train</div>
 
         <form>
             <div class="form-group">
-                <label for="name">Employee Name:</label>
-                <input type="name" class="form-control" id="name" placeholder="Enter Name">
+                <label for="trainName">Train Name:</label>
+                <input type="trainName" class="form-control" id="trainName" placeholder="Train Name">
             </div>
             <div class="form-group">
-                <label for="role">Role:</label>
-                <input type="role" class="form-control" id="role" placeholder="Enter Role">
+                <label for="Destination">Destination:</label>
+                <input type="Destination" class="form-control" id="Destination" placeholder="Destination">
             </div>
             <div class="form-group">
-                <label for="date">Start Date (DD/MM/YY - ex: 01/01/89</label>
-                <input type="date" class="form-control" id="date" placeholder="Enter Date">
+                <label for="FirstTrain">First Train time (Military Time)</label>
+                <input type="time" class="form-control" id="FirstTrain" placeholder="Enter Date">
             </div>
             <div class="form-group">
-                <label for="monthlyRate">Monthly Rate:</label>
-                <input type="montlyRate" class="form-control" id="monthlyRate" placeholder="Enter Rate">
+                <label for="Frequency">Frequency (Minutes)</label>
+                <input type="Frequency" class="form-control" id="Frequency" placeholder="minutes">
             </div>
             <button type="submit" class="btn btn-primary" id="myButton">Submit</button>
         </form>
@@ -78,10 +70,9 @@
 
 
 
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="moment/moment.js"></script>
-<script src="script.js"></script>
+<script src="javascript/script.js"></script>
 </body>
 </html>

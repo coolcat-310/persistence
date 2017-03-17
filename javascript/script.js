@@ -2,6 +2,7 @@
  * Created by juancarlosnavarrete on 3/13/17.
  */
 
+var DEBUG = false;
 
 // Initialize Firebase
 var config = {
@@ -15,56 +16,94 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
-// Initial Values
-var name = "";
-var email = "";
-var age = 0;
-var comment = "";
+
+
 
 $("#myButton").on("click", function (event) {
+    /**
+     * This onclick event gathers all the information that was entered by the user and saves the data onto firebase.
+     * @method onClick
+     */
     event.preventDefault();
-    var name = $("#name").val().trim();
-    var role = $("#role").val().trim();
-    var date = $("#date").val().trim();
-    var rate = $("#monthlyRate").val().trim();
+    var train = $("#trainName").val().trim();
+    var Destination = $("#Destination").val().trim();
+    var FirstTrain = $("#FirstTrain").val().trim();
+    var Frequency = $("#Frequency").val().trim();
 
-    console.log(name + ' ' + role + " " + date + " " + rate);
+    console.log(train + ' ' + Destination + " " + FirstTrain + " " + Frequency);
 
     database.ref().push({
-        name: name,
-        role: role,
-        date: date,
-        rate: rate
+        aTrainName: train,
+        destination: Destination,
+        firstTrain: FirstTrain,
+        frequency: Frequency
     });
-    $("#name").val('');
-    $("#role").val('');
-    $("#date").val('');
-    $("#monthlyRate").val('');
-    //dateAdded: firebase.database.serverValue.TIMESTAMP
+    train.val('');
+    Destination.val('');
+    FirstTrain.val('');
+    Frequency.val('');
 });
 
+function myNextTrain(initial,interval){
+    /**
+     * This function calculates the next arrival time of the bus in Military time
+     * @method myNextTrain
+     * @param int(initial), int(interval)
+     */
+    var arr = [];
+    var currentHour = moment().get('hour');
+    var currentMin  = moment().get('minute');
+    var totalMinutes = (currentHour * 60) + currentMin;
+    var initialMinutes = initial * 60;
+
+
+    while (initialMinutes < totalMinutes){
+        // add interval to start
+        initialMinutes += interval;
+    }
+    var nextHour = parseInt(initialMinutes /60);
+    var minAway = initialMinutes - totalMinutes;
+    var nextMin = initialMinutes - (nextHour * 60);
+    arr.push(String(nextHour)+ ":" + String(nextMin));
+    arr.push(minAway);
+    return arr;
+}
+
+
 function buildLine(obj){
+    /**
+     * This function calculates the next arrival time of the bus in Military time
+     * @method myNextTrain
+     * @param int(initial), int(interval)
+     */
 
+    var scheduletimes =myNextTrain(parseInt(obj.firstTrain), parseInt(obj.frequency));
+    var arr = [];
+    arr.push(obj.aTrainName);
+    arr.push(obj.destination);
+    arr.push(obj.frequency);
+    arr.push(scheduletimes[0]);
+    arr.push(scheduletimes[1]);
+
+    //build The line tr that would append into tbody
     var newTr = $("<tr>");
-
-
-    var name = obj.name;
-    var role = obj.role;
-    var date = obj.date;
-    var rate = obj.rate;
-    console.log(obj.date);
-    var current = moment().calendar();
-
-    console.log(moment().format('MMMM Do YYYY'));
-    console.log(moment('2010-10-20').isBefore('2010-12-31', 'year'));
-    console.log(moment("20111031", "YYYYMMDD").fromNow());
-
+    for(var i = 0; i< arr.length; i++){
+        var newTd = $("<td>").html(arr[i]);
+        newTd.appendTo(newTr);
+    }
+    $('tBody').append(newTr);
 
 }
 
 
 
+
 database.ref().on("value", function(snapshot) {
+    /**
+     * This on value function retrieves the most recent database
+     * @method onValue
+     * @param obj(snapshot)
+     */
     //any changes on database we want to update our html
 
     // storing the snapshot.val() in a variable for convenience
@@ -79,14 +118,16 @@ database.ref().on("value", function(snapshot) {
     var lastKey = svArr[lastIndex];
 
     // Using the last user's key to access the last added user object
-    var lastObj = sv[lastKey]
+    var lastObj = sv[lastKey];
 
-    // Console.loging the last user's data
-    console.log(lastObj.name);
-    console.log(lastObj.role);
-    console.log(lastObj.date);
-    console.log(lastObj.rate);
-
+    if(DEBUG) {
+        // Console.loging the last user's data
+        console.log('this is the last object: ');
+        console.log(lastObj.aTrainName);
+        console.log(lastObj.destination);
+        console.log(lastObj.firstTrain);
+        console.log(lastObj.frequency);
+    }
 
     buildLine(lastObj);
 
