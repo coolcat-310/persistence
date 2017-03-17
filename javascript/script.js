@@ -3,6 +3,7 @@
  */
 
 var DEBUG = false;
+var ONLOAD = true;
 
 // Initialize Firebase
 var config = {
@@ -96,11 +97,9 @@ function buildLine(obj){
         var newTd = $("<td>").html(arr[i]);
         newTd.appendTo(newTr);
     }
-    $('tBody').append(newTr);
+    $('tBody').prepend(newTr);
 
 }
-
-
 
 
 database.ref().on("value", function(snapshot) {
@@ -133,11 +132,18 @@ database.ref().on("value", function(snapshot) {
         console.log(lastObj.firstTrain);
         console.log(lastObj.frequency);
     }
-
-    buildLine(lastObj);
-
+    if(ONLOAD){
+        for (var i = 0; i < svArr.length - 1; i++) {
+            //console.log(sv[svArr[i]]);
+            buildLine(sv[svArr[i]]);
+        }
+        ONLOAD = false;
+    }else {
+        buildLine(lastObj);
+    }
 
     // Handle the errors
 }, function(errorObject) {
     console.log("Errors handled: " + errorObject.code);
 });
+
