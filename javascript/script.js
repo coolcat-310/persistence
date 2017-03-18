@@ -133,7 +133,7 @@ database.ref().on("value", function(snapshot) {
         console.log(lastObj.frequency);
     }
     if(ONLOAD){
-        for (var i = 0; i < svArr.length - 1; i++) {
+        for (var i = 0; i < svArr.length; i++) {
             //console.log(sv[svArr[i]]);
             buildLine(sv[svArr[i]]);
         }
